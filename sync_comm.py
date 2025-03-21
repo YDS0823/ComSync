@@ -243,14 +243,14 @@ if __name__ == "__main__":
     num=args.num
     #----------------------------------------------------------------#
     print(shot,model,API_KEY,dataset,retrieval,num)
-    # rtr_path = f"./retrieval/{dataset}/{retrieval}_id_sampled.pkl"
-    # train_path=f"./dataset/{dataset}/train.jsonl"
-    # test_path =f"./dataset/{dataset}/test_sampled.jsonl"
-    # if model!="gpt3.5":
-    #     out_path = f"./result/{dataset}/{model}/shot{shot}/{model}_shot{shot}_{retrieval}_{num}.jsonl"
-    # else:
-    #     out_path = f"./result/{dataset}/{model}/shot{shot}/{model}_shot{shot}_{retrieval}.jsonl"
-    # if retrieval!="hybrid":
-    #     collect_all_retrieval(dataset,model,train_path,rtr_path, test_path, out_path, shots=shot, api_key=API_KEY, start=0,temperature=0.80)
-    # else:
-    #     collect_all_retrieval_hybrid(dataset,model,train_path,test_path, out_path, shots=shot, api_key=API_KEY, start=0,temperature=0.80)
+    rtr_path = f"./retrieval/{dataset}/{retrieval}_id_sampled.pkl"
+    train_path=f"./dataset/{dataset}/train.jsonl"
+    test_path =f"./dataset/{dataset}/test_sampled.jsonl"
+    if model!="gpt3.5":
+        out_path = f"./result/{dataset}/{model}/shot{shot}/{model}_shot{shot}_{retrieval}_{num}.jsonl"
+    else:
+        out_path = f"./result/{dataset}/{model}/shot{shot}/{model}_shot{shot}_{retrieval}.jsonl"
+    if retrieval!="hybrid":
+        collect_all_retrieval(dataset,model,train_path,rtr_path, test_path, out_path, shots=shot, api_key=API_KEY, start=0,temperature=0.80)
+    else:
+        collect_all_retrieval_hybrid(dataset,model,train_path,test_path, out_path, shots=shot, api_key=API_KEY, start=0,temperature=0.80)
