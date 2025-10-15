@@ -1,6 +1,6 @@
 ## Readme
 
-Download the dataset from the download [link](https://drive.google.com/file/d/1sRfZ53xn8VHN1wwzO2xkYkV3e7ikEoVp/view?usp=drive_link) and unzip it to the dataset folder
+Download the dataset from the download [link](https://zenodo.org/records/17358768) and unzip it to the dataset folder
 
 ### Retrieval
 
