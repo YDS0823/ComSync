@@ -1,6 +1,6 @@
 ## Readme
 
-Download the R^2ComSync dataset from the download [link](https://zenodo.org/records/17362180) and unzip it to the dataset folder
+Download the R<sup>2</sup>ComSync dataset from the download [link](https://zenodo.org/records/17362180) and unzip it to the dataset folder
 
 ### Retrieval
 
