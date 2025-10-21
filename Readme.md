@@ -1,11 +1,11 @@
 ## Readme
 
-Download the R^2ComSync dataset from the download [link](https://zenodo.org/records/17362180) and unzip it to the dataset folder
+Download the R<sup>2</sup>ComSync dataset from the download [link](https://zenodo.org/records/17362180) and unzip it to the dataset folder
 
 ### Retrieval
 
 The samples we retrieved are from the training sets of the respective datasets.
-Retrieve 100 relevant training set samples for each test sample:
+Retrieve 10 relevant training set samples for each test sample:
 
 ```shell
 python retrieval.py  --dataset Hebcup
