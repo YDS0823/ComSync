@@ -26,7 +26,8 @@ The code-comment synchronization needs to be performed on the following problem 
 `{"sample_id": 2231080, "full_name": "hazelcast/hazelcast", "commit_id": "b4af08812320bcadbbd5cd8e496aa8e96993aaa3"}`
 
 The answers provided by **Llama3-8b-instruct**, **GPT-3.5-turbo**, and **Llama3-70b-instruct** are as follows:
-![](./output.png)
+
+<img src="output.png" alt="prompt" width="80%" height="auto">
 
 
 
