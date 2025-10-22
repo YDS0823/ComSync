@@ -14,7 +14,7 @@ python retrieval.py  --dataset Hebcup
 ### Prompt
 
 Here we present a prompt used for one sample from the **Liu’s dataset** test set. Under the **EHR** condition, the number of selected shots is **2**.
-![](./prompt.png)
+![](prompt.png)
 
 The first sample was retrieved using **CodeBERT**, with the following meta data:
 `{"sample_id": 3880860, "full_name": "wso2/msf4j", "commit_id": "8df74e2f798af426820f34511492b3c27b96984b"}`
