@@ -57,7 +57,7 @@ python vllm.py \
   --train_path ./dataset/pai's/train.jsonl \
   --test_path ./dataset/pai's/test.jsonl \
   --retrieval_paths ./retrieval/Pai's/dense_ids.pkl \
-                   ./retrieval/Pai's/Python/expert_ids.pkl \
+                   ./retrieval/Pai's/expert_ids.pkl \
   --output_dir ./result/pai's/qwen1.5b/shot10 \
   --shots 5 \
   --hybrid \
