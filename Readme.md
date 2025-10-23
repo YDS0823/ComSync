@@ -1,6 +1,6 @@
 ## Readme
 
-### Prompt Example Illustration
+### A Prompt Example Illustration
 
 Here we present a prompt used for one CCS target from the **Liu’s** testing set. Using the **EHR** method with a shot number P equals 2.
 ![](prompt.png)
