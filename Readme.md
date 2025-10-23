@@ -50,18 +50,38 @@ Then use sync_comm.py to call the large language model for generation:
 bash sync_comm.sh
 ```
 
-The results of llama3 need to be post processed and merged:
+Or you can deploy the Llama3 series models and Qwen2.5 series models locally for inference — we provide versions accelerated by vLLM:
+```shell
+python run_vllm.py \
+  --model_path your-model-path \
+  --train_path ./dataset/pai's/train.jsonl \
+  --test_path ./dataset/pai's/test.jsonl \
+  --retrieval_paths ./retrieval/Pai's/dense_ids.pkl \
+                   ./retrieval/Pai's/Python/expert_ids.pkl \
+  --output_dir ./result/pai's/qwen1.5b/shot10 \
+  --shots 5 \
+  --hybrid \
+  --max_tokens 100
+```
+
+The results of Llama3 or Qwen2.5 need to be post processed:
 
 ```shell
-python post_process.py
+python post_process.py \
+  --input_dir model's output file \
+  --output_dir where you want to save \
+  --temp_dir temp.jsonl \
+  --shots 2 4 6 8 10 \
+  --types dense hybrid expert
 ```
+
 
 ### Rerank
 
 Use heuristic_rerank.py to rerank and control the effect  changing `unk_threshold` and `exs_threshold`:
 
 ```shell
-python heuristic_rerank.py --dataset Hebcup --unk_threshold 0.35 --exs_threshold 0.25 --result_path "./result/Hebcup/llama3_70b/shot8/llama3_70b_shot8_hybrid.jsonl"
+python heuristic_rerank.py --dataset Hebcup --unk_threshold 0.35 --exs_threshold 0.25 --result_path "./result/Liu's/llama3_70b/shot8/llama3_70b_shot8_hybrid.jsonl"
 ```
 
 You can use the following code to determine the `unk_threshold` and `exs_threshold` required for your dataset.
