@@ -52,7 +52,7 @@ bash sync_comm.sh
 
 Or you can deploy the Llama3 series models and Qwen2.5 series models locally for inference — we provide versions accelerated by vLLM:
 ```shell
-python run_vllm.py \
+python vllm.py \
   --model_path your-model-path \
   --train_path ./dataset/pai's/train.jsonl \
   --test_path ./dataset/pai's/test.jsonl \
