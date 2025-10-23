@@ -10,12 +10,10 @@ from transformers import AutoTokenizer
 from utils.concat_rets import process_line
 
 
-# ====================================================
-# =============== 核心函数定义 =========================
-# ====================================================
+
 
 def build_prompt(messages, tokenizer):
-    """构造完整 prompt"""
+    """make full prompt"""
     return tokenizer.apply_chat_template(
         messages,
         tokenize=False,
@@ -23,11 +21,11 @@ def build_prompt(messages, tokenizer):
     )
 
 
-def safe_prompt(prompt_text, tokenizer, max_len=32000):
-    """安全截断 prompt"""
+def safe_prompt(prompt_text, tokenizer, max_len=32000):# Qwen needs 32000,Llama need 8000
+    """safe truncate prompt"""
     ids = tokenizer.encode(prompt_text, add_special_tokens=False)
     if len(ids) > max_len:
-        print("⚠️ Prompt 超过最大长度，自动截断")
+        print("⚠️ Prompt exceeds max length, truncating...")
         ids = ids[-max_len:]
     return tokenizer.decode(ids)
 
@@ -107,6 +105,10 @@ def build_prompts(test_path, rtr_paths, train, tokenizer, shots, hybrid=False):
                     dst_method.append(ex['dst_method'])
                     src_doc.append(ex['src_desc'])
                     dst_doc.append(ex['dst_desc'])
+                    # src_method.append(ex['old_code']) #the pai's dataset and panth's dataset should change to this
+                    # dst_method.append(ex['new_code'])
+                    # src_doc.append(ex['old_comment'])
+                    # dst_doc.append(ex['new_comment'])
         else:
             example_ids = line_pack[1]
             for idx in example_ids[:shots]:
@@ -115,13 +117,20 @@ def build_prompts(test_path, rtr_paths, train, tokenizer, shots, hybrid=False):
                 dst_method.append(ex['dst_method'])
                 src_doc.append(ex['src_desc'])
                 dst_doc.append(ex['dst_desc'])
+                # src_method.append(ex['old_code'])
+                # dst_method.append(ex['new_code'])
+                # src_doc.append(ex['old_comment'])
+                # dst_doc.append(ex['new_comment'])
 
-        cur_src_method = sample['src_method']
+        # cur_src_method = sample['src_method']
+        # cur_dst_method = sample['dst_method']
+        # cur_src_doc = sample['src_desc']
+        cur_src_method = sample['old_code']
         cur_dst_method = sample['dst_method']
-        cur_src_doc = sample['src_desc']
+        cur_src_doc = sample['old_comment']
 
         messages = [{"role": "system", "content": "You are a programmer who makes the code changes below:"}]
-        head = "//write a docstring for after-change code based on the given before-change code and before-change docstring.End your answer with \nEND_OF_DEMO\n\n"
+        head = "//write a docstring for after-change code based on the given before-change code and before-change docstring."# if the model parameter is lower than 8b,you should add "End your answer with \nEND_OF_DEMO\n\n"
 
         prompt_text = ""
         for sm, dm, sd, dd in zip(src_method, dst_method, src_doc, dst_doc):
@@ -136,24 +145,21 @@ def build_prompts(test_path, rtr_paths, train, tokenizer, shots, hybrid=False):
     return prompts
 
 
-# ====================================================
-# =============== 主入口：parse + 主逻辑 ===============
-# ====================================================
 
 def main():
     parser = argparse.ArgumentParser(description="Unified vLLM Retrieval Generation Script")
-    parser.add_argument("--model_path", required=True, help="本地模型路径")
+    parser.add_argument("--model_path", required=True, help="your model path")
     parser.add_argument("--train_path", required=True)
     parser.add_argument("--test_path", required=True)
-    parser.add_argument("--retrieval_paths", nargs="+", required=True, help="一个或两个检索路径（dense, expert）")
+    parser.add_argument("--retrieval_paths", nargs="+", required=True, help="one or two retrieval path（dense, expert or dense & expert）")
     parser.add_argument("--output_dir", required=True)
     parser.add_argument("--shots", type=int, default=2)
     parser.add_argument("--start", type=int, default=0)
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--temperature", type=float, default=0.8)
     parser.add_argument("--top_p", type=float, default=0.95)
-    parser.add_argument("--hybrid", action="store_true", help="是否使用 dense+expert 混合检索")
-    parser.add_argument("--max_tokens", type=int, default=50, help="生成长度（Python 可设 100）")
+    parser.add_argument("--hybrid", action="store_true", help="whether it use dense+expert hybrid retrieval")
+    parser.add_argument("--max_tokens", type=int, default=50, help="generate loog（Python to 100 and Java to 50）")
 
     args = parser.parse_args()
 
